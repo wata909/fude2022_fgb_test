@@ -80,7 +80,7 @@
         async function updateResults() {
             let i = 0;
             const fc = {type: "FeatureCollection", features: []};
-            let iter = flatgeobuf.deserialize("https://wata909.github.io/fude2022_fgb_test/2022_282138.fgb", fgBoundingBox(), handleHeaderMeta);
+            let iter = flatgeobuf.deserialize("https://habs.rad.naro.go.jp/spatial_data/maff_fude2022/maff_fude2022.fgb", fgBoundingBox(), handleHeaderMeta);
             for await (let feature of iter) {
                 fc.features.push({...feature, id: i});
                 i += 1;
@@ -148,7 +148,7 @@
             // from https://docs.mapbox.com/mapbox-gl-js/example/popup-on-click/
             map.on("click", "blocks-fill", (e) => {
                 const props = e.features[0].properties;
-                const html = `${props.population} people live in this census block.`;
+                const html = `Polygon ID:${props.polygon_uuid} `;
                 new maplibregl.Popup()
                     .setLngLat(e.lngLat)
                     .setHTML(html)
@@ -207,11 +207,12 @@
         This page modified <a href="https://flatgeobuf.org/examples/maplibre/large.html">FlatGeobuf MapLibre example Filtering a Large Dataset</a>
     </p>
     <p>
-        This is a map of every census block in the USA, including its
-        population. The entire file is over 12GB, but FlatGeobuf fetches only
+        This is a map of fude polygon in Japan, including its ID and land type.
+        The entire file is over 16GB, but FlatGeobuf fetches only
         the tiny subset of data that intersects with the bounding box (drawn
         in yellow). Pan the map to move the query's bounding box.
     </p>
+<!--
     <p>
         When you have feature data that cover a large area in fine-grained
         detail like this, the typical options are to either manually slice up
@@ -230,6 +231,8 @@
         the tedium of slicing up files manually, or building and maintaining an
         application server.
     </p>
+-->
+
     <div id="header">
         <h3>Parsed header content</h3>
     </div>
