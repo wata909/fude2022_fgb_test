@@ -38,10 +38,10 @@
         const map = new maplibregl.Map({
             container: "map",
             style: "https://demotiles.maplibre.org/style.json",
-            center: [-73.98, 40.766],
-            zoom: 13,
+            center: [35, 135],
+            zoom: 15,
             maxZoom: 18,
-            minZoom: 12,
+            minZoom: 13,
         });
 
         // optionally show some meta-data about the FGB file
@@ -80,7 +80,7 @@
         async function updateResults() {
             let i = 0;
             const fc = {type: "FeatureCollection", features: []};
-            let iter = flatgeobuf.deserialize("https://flatgeobuf.septima.dk/population_areas.fgb", fgBoundingBox(), handleHeaderMeta);
+            let iter = flatgeobuf.deserialize("https://wata909.github.io/fude2022_fgb_test/2022_282138.fgb", fgBoundingBox(), handleHeaderMeta);
             for await (let feature of iter) {
                 fc.features.push({...feature, id: i});
                 i += 1;
@@ -203,6 +203,9 @@
         });
     });
     </script>
+    <p>
+        This page modified <a href="https://flatgeobuf.org/examples/maplibre/large.html">FlatGeobuf MapLibre example Filtering a Large Dataset</a>
+    </p>
     <p>
         This is a map of every census block in the USA, including its
         population. The entire file is over 12GB, but FlatGeobuf fetches only
